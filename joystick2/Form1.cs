@@ -1,4 +1,5 @@
 using System.Reflection;
+using static System.Windows.Forms.AxHost;
 
 namespace joystick2
 {
@@ -8,9 +9,10 @@ namespace joystick2
         private Point lastMousePos = Point.Empty;
         Image greenImage, redImage, redImage2, greenImage2;
         private int currentImageIndex = 0;
+
         private int startPanelX = 0;
         private int startPanelY = 0;
-
+        private double radius = 1; // Yuvarlak dairenin yarýçapý
 
 
         public Form1()
@@ -31,9 +33,11 @@ namespace joystick2
 
             // Load olay iþleyicisinde yapýlmasý gereken iþlemleri burada gerçekleþtirin
             panelJoystick.BackgroundImage = greenImage;
-            panelJoystick.BackgroundImage = greenImage2; startPanelX = panelJoystick.Location.X;
+            panelJoystick.BackgroundImage = greenImage2;
+            startPanelX = panelJoystick.Location.X;
             startPanelY = panelJoystick.Location.Y;
-            //aaaaa
+
+
 
 
         }
@@ -68,8 +72,8 @@ namespace joystick2
                 int newY = panelJoystick.Location.Y + dy;
 
                 // Panelin form sýnýrlarý içinde kalmasýný saðlayalým
-                newX = Math.Max(0, Math.Min(newX, this.ClientSize.Width - panelJoystick.Width));
-                newY = Math.Max(0, Math.Min(newY, this.ClientSize.Height - panelJoystick.Height));
+                newX = Math.Max(60, Math.Min(newX, this.ClientSize.Width - panelJoystick.Width));
+                newY = Math.Max(60, Math.Min(newY, this.ClientSize.Height - panelJoystick.Height));
 
                 panelJoystick.Location = new Point(newX, newY);
 
@@ -77,6 +81,24 @@ namespace joystick2
                 int currentX = panelJoystick.Location.X - startPanelX;
                 int currentY = panelJoystick.Location.Y - startPanelY;
                 label2.Text = "X: " + currentX + " | Y: " + currentY;
+
+
+                //double angle = Math.Atan2(e.Y - panelJoystick.Height / 2, e.X - panelJoystick.Width / 2);
+                //int newXp = (int)(radius * Math.Cos(angle)) + panelJoystick.Width / 2;
+                //int newYp= (int)(radius * Math.Sin(angle)) + panelJoystick.Height / 2;
+
+                //// Panelin form sýnýrlarý içinde kalmasýný saðlayalým
+                //newX = Math.Max(0, Math.Min(newX, this.ClientSize.Width - panelJoystick.Width));
+                //newY = Math.Max(0, Math.Min(newY, this.ClientSize.Height - panelJoystick.Height));
+
+                //panelJoystick.Location = new Point(newX, newY);
+
+                //// Koordinatlarý label içinde güncelle
+                //int current = newX - panelJoystick.Width / 2;
+                //int currenta = newY - panelJoystick.Height / 2;
+                //label1.Text = "X: " + currentX + " | Y: " + currentY;
+
+
             }
         }
 
@@ -84,7 +106,13 @@ namespace joystick2
         {
             if (e.Button == MouseButtons.Left)
             {
-                
+                isDragging = false;
+                panelJoystick.BackgroundImage = greenImage;
+                this.BackgroundImage = greenImage2;
+
+               
+                panelJoystick.Location = new Point(startPanelX, startPanelY);
+                label2.Text = "X: 0 | Y: 0";
                 moveTimer.Stop(); // Timer'ý durdur
             }
             if (e.Button == MouseButtons.Left)
@@ -102,12 +130,7 @@ namespace joystick2
 
         private void moveTimer_Tick(object sender, EventArgs e)
         {
-            isDragging = false;
-            panelJoystick.BackgroundImage = greenImage;
-            this.BackgroundImage = greenImage2;
 
-            panelJoystick.Location = new Point(startPanelX, startPanelY);
-            label2.Text = "X: 0 | Y: 0";
 
         }
 
@@ -118,4 +141,3 @@ namespace joystick2
     }
 
 }
-

@@ -68,9 +68,9 @@
             label2.BackColor = Color.White;
             label2.Location = new Point(377, 461);
             label2.Name = "label2";
-            label2.Size = new Size(130, 15);
+            label2.Size = new Size(60, 15);
             label2.TabIndex = 2;
-            label2.Text = "PANEL X :0 | PANEL Y :0";
+            label2.Text = " X :0 |  Y :0";
             label2.Click += label2_Click;
             // 
             // Form1
