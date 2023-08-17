@@ -33,7 +33,7 @@ namespace joystick2
             panelJoystick.BackgroundImage = greenImage;
             panelJoystick.BackgroundImage = greenImage2; startPanelX = panelJoystick.Location.X;
             startPanelY = panelJoystick.Location.Y;
-
+            //aaaaa
 
 
         }
